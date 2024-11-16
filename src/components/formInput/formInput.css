@@ -1,0 +1,33 @@
+.formInput{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.formInput input {
+    padding: 10px;
+    margin: 7px 0px;
+    border: 1px solid #cacaca;
+    outline: none;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.formInput input:focus {
+    border-bottom-width: 2px;
+}
+
+.formInput input:invalid[focused = "true"] {
+    border: 1px solid red ;
+}
+.formInput input:invalid[focused = "true"] ~ .errorMessage {
+    display: block;
+}
+
+.formInput .errorMessage {
+    font-size: 10px;
+    font-style: italic;
+    padding: 0px;
+    color: rgb(239, 74, 74);
+    display: none;
+}
