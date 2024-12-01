@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './game.css';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/navbar/Navbar';
-import GameOver from '../../components/gameover/GameOver'; 
+import GameOver from '../../components/gameover/GameOver';
 import audioFile from '../../audioFile.mp3';
 import { getFirestore, collection, addDoc, updateDoc, getDocs, doc } from 'firebase/firestore';
 import { ReactSession } from 'react-client-session';
@@ -16,12 +16,55 @@ const BananaGame = () => {
   const [seconds, setSeconds] = useState(30); // Start with 30 seconds
   const [audio] = useState(new Audio(audioFile));
   const [isMuted, setIsMuted] = useState(false);
-  const [isGameOver, setIsGameOver] = useState(false); 
+  const [isGameOver, setIsGameOver] = useState(false);
   const [options, setOptions] = useState([]);
-  const [clickedButton, setClickedButton] = useState(null); // New state for button feedback
-  const [level, setLevel] = useState(1); // New level state
+  const [clickedButton, setClickedButton] = useState(null);
+  const [level, setLevel] = useState(1);
+  const [playerName, setPlayerName] = useState('');
   const navigate = useNavigate();
 
+  // Fetch username on component load
+  useEffect(() => {
+    const username = localStorage.getItem('username');
+    if (username) {
+      setPlayerName(username);
+    } else {
+      fetchUsernameFromFirestore();
+    }
+  }, [navigate]);
+
+  const fetchUsernameFromFirestore = async () => {
+    try {
+      const db = getFirestore();
+      const email = localStorage.getItem('email'); // Get email from localStorage
+      if (!email) {
+        window.alert('User data not found. Please log in again.');
+        navigate('/login');
+        return;
+      }
+
+      const usersCollection = collection(db, 'users');
+      const querySnapshot = await getDocs(usersCollection);
+
+      // Find the document with the matching email
+      const userDoc = querySnapshot.docs.find((doc) => doc.data().email === email);
+
+      if (userDoc) {
+        const { username } = userDoc.data();
+        setPlayerName(username);
+        localStorage.setItem('username', username); // Cache username for future use
+      } else {
+        window.alert('No user data found. Please log in again.');
+        navigate('/login');
+      }
+    } catch (error) {
+      console.error('Error fetching username from Firestore:', error);
+      window.alert('Failed to fetch user data. Please log in again.');
+      navigate('/login');
+    }
+  };
+
+  // Fetch the question image from the API
   const fetchImage = async () => {
     try {
       const response = await fetch('https://marcconrad.com/uob/banana/api.php');
@@ -40,6 +83,7 @@ const BananaGame = () => {
     fetchImage();
   }, []);
 
+  // Background music handling
   useEffect(() => {
     const handlePlay = () => {
       audio.loop = true;
@@ -57,6 +101,7 @@ const BananaGame = () => {
     };
   }, [audio, isMuted]);
 
+  // Timer logic
   useEffect(() => {
     const timer = setInterval(() => {
       if (seconds <= 0) {
@@ -69,22 +114,7 @@ const BananaGame = () => {
     return () => clearInterval(timer);
   }, [seconds]);
 
-  useEffect(() => {
-    const onPageLoad = () => {
-      var isLogged = ReactSession.get('isLogged');
-      if (!isLogged) {
-        window.alert('Not Logged In');
-        navigate('/login');
-      }
-    };
-    if (document.readyState === 'complete') {
-      onPageLoad();
-    } else {
-      window.addEventListener('load', onPageLoad, false);
-      return () => window.removeEventListener('load', onPageLoad);
-    }
-  }, []);
-
+  // Logout handling
   const handleLogout = () => {
     ReactSession.set('isLogged', false);
     localStorage.removeItem('_react_session__');
@@ -94,6 +124,7 @@ const BananaGame = () => {
     navigate('/login');
   };
 
+  // Start the new quest
   const startQuest = (data) => {
     try {
       const parsed = JSON.parse(data);
@@ -109,7 +140,7 @@ const BananaGame = () => {
   const generateOptions = (correctAnswer) => {
     const uniqueOptions = new Set([correctAnswer]);
 
-    while (uniqueOptions.size < 5) { // 1 correct + 4 incorrect options
+    while (uniqueOptions.size < 5) {
       uniqueOptions.add(Math.floor(Math.random() * 10));
     }
 
@@ -122,16 +153,16 @@ const BananaGame = () => {
       setNote('Correct!');
       updateScore(true);
       setTimeout(() => {
-        setClickedButton(null); // Reset button state
+        setClickedButton(null);
         fetchImage();
-        setSeconds((prev) => prev + 5); // Add 5 seconds for a correct answer
-        setLevel((prevLevel) => prevLevel + 1); // Increment level on correct answer
-      }, 1000); // Load next puzzle after 1 second
+        setSeconds((prev) => prev + 5);
+        setLevel((prevLevel) => prevLevel + 1);
+      }, 1000);
     } else {
       setClickedButton({ id: selectedOption, status: 'wrong' });
       setNote('Not Correct!');
       updateScore(false);
-      setTimeout(() => setClickedButton(null), 1000); // Reset button state after 1 second
+      setTimeout(() => setClickedButton(null), 1000);
     }
   };
 
@@ -147,9 +178,9 @@ const BananaGame = () => {
     try {
       const db = getFirestore();
       const scoresCollection = collection(db, 'scores');
-      const userEmail = getCookie('email');
+      const userEmail = localStorage.getItem('email');
       const querySnapshot = await getDocs(scoresCollection);
-      const userDoc = querySnapshot.docs.find(doc => doc.data().userEmail === userEmail);
+      const userDoc = querySnapshot.docs.find((doc) => doc.data().userEmail === userEmail);
       if (userDoc) {
         await updateDoc(doc(scoresCollection, userDoc.id), {
           score: finalScore,
@@ -167,19 +198,13 @@ const BananaGame = () => {
   };
 
   const handleGameOver = () => {
-    saveScoreToDatabase(score); 
+    saveScoreToDatabase(score);
     setIsGameOver(true);
   };
 
   const handleMuteToggle = () => {
     setIsMuted(!isMuted);
   };
-
-  function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-  }
 
   return (
     <div>
@@ -201,7 +226,7 @@ const BananaGame = () => {
                     clickedButton?.id === option ? clickedButton.status : ''
                   }`}
                   onClick={() => handleOptionClick(option)}
-                  disabled={clickedButton !== null} // Disable buttons temporarily
+                  disabled={clickedButton !== null}
                 >
                   {option}
                 </button>
@@ -211,9 +236,10 @@ const BananaGame = () => {
               {isMuted ? ' 🔇' : ' 🔊'}
             </button>
             <div className="display-bar">
-              <p id="timer">Timer : {seconds} s</p>
-              <p id="score">Score : {score}</p>
-              <p id="level">Level : {level}</p> {/* Display current level */}
+              <p id="player">Player: {playerName}</p> {/* Added player's name */}
+              <p id="timer">Timer: {seconds} s</p>
+              <p id="score">Score: {score}</p>
+              <p id="level">Level: {level}</p>
             </div>
           </>
         )}

@@ -71,8 +71,9 @@ const Register = () => {
       );
       const user = userCredential.user;
 
-      // Set the email in local storage
+      // Save username and email to localStorage
       localStorage.setItem('email', inputValues.email);
+      localStorage.setItem('username', inputValues.username);
 
       // Add user data to Firestore, including an initial empty score
       await addDoc(collection(db, 'users'), {
