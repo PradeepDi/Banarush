@@ -5,13 +5,13 @@ import { getFirestore } from 'firebase/firestore';
 
 // Firebase configuration object with API keys and project details
 const firebaseConfig = {
-  apiKey: "AIzaSyCby0zXsmN8Nu6NFnNkA1z2N9sAzYgH38g",
-  authDomain: "banarush-93864.firebaseapp.com",
-  projectId: "banarush-93864",
-  storageBucket: "banarush-93864.firebasestorage.app",
-  messagingSenderId: "934861258713",
-  appId: "1:934861258713:web:aa3aa5d37e0acb48c023c8",
-  measurementId: "G-XGMVVHS2SC"
+  apiKey: "AIzaSyDT47kg9xVa1YvgxoqazRjNHAuG2tgu9dQ",
+  authDomain: "banarush-a2f00.firebaseapp.com",
+  projectId: "banarush-a2f00",
+  storageBucket: "banarush-a2f00.firebasestorage.app",
+  messagingSenderId: "745931899293",
+  appId: "1:745931899293:web:3db825c3e2a86eeec56f74",
+  measurementId: "G-40SYK9CZJQ"
 };
 
 // Initialize Firebase app with the provided configuration

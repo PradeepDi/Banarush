@@ -88,6 +88,7 @@ const Register = () => {
     } catch (error) {
       console.error('Error during registration:', error.message);
       window.alert('Email Already Exists or invalid details');
+
     }
   };
 
