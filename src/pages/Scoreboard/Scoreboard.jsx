@@ -21,7 +21,7 @@ const Scoreboard = () => {
 
       try {
         // Fetch all user scores from Firestore
-        const usersCollection = collection(db, 'users');
+        const usersCollection = collection(db, 'scores');
         const usersSnapshot = await getDocs(usersCollection);
 
         const scores = [];

@@ -179,15 +179,23 @@ const BananaGame = () => {
       const db = getFirestore();
       const scoresCollection = collection(db, 'scores');
       const userEmail = localStorage.getItem('email');
+      const username = localStorage.getItem('username'); // Retrieve the username
+
       const querySnapshot = await getDocs(scoresCollection);
       const userDoc = querySnapshot.docs.find((doc) => doc.data().userEmail === userEmail);
+
       if (userDoc) {
+        // Update existing score record
         await updateDoc(doc(scoresCollection, userDoc.id), {
           score: finalScore,
+          username, // Include the username
+          timestamp: new Date(),
         });
       } else {
+        // Add new score record
         await addDoc(scoresCollection, {
           userEmail,
+          username, // Include the username
           score: finalScore,
           timestamp: new Date(),
         });
