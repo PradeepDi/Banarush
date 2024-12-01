@@ -33,7 +33,7 @@ const Instructions = () => {
             If you can't solve the puzzle within given time, game will be over.
           </p>
         </div>
-        <label className="footer">Develop by Pradeep Dissanayaka</label>
+        <label className="footer">Develop by Pradeep Dissanayaka (UOB Student ID - 2423350)</label>
       </form>
 
       <Link to="/"> {/* Link to the game page */}
