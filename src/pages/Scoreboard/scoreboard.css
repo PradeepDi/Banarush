@@ -1,0 +1,88 @@
+.scoreboard {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    background-image: url("/src/images/bgmain.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    overflow: hidden;
+  }
+  
+  #scoreboardForm {
+    display: flex; /* Add flex display */
+    flex-direction: column; /* Arrange children in a column */
+    align-items: center; /* Align items to the center horizontally */
+    background-color: #D7E5FF;
+    max-width: 600px;
+    padding: 40px;
+    width: 80%;
+    height: 70%;
+    border-radius: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 90%;
+  }
+  
+  #topic {
+    font-size: 35px;
+    align-self: center; /* Align the element to the center of the container */
+  }
+  
+  #h {
+    font-size: 40px;
+    color: #232836;
+    text-align: center;
+    padding: 10px;
+    margin-top: -35px;
+  }
+  
+  #back-btn {
+    height: 50px;
+    width: 20%;
+    background-color: #08c437;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 25px;
+    font-weight: 400;
+    font-size: 18px;
+    margin: 15px auto 10px auto;
+    transition: 0.5;
+    cursor: pointer;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  #login-btn:hover {
+    background-color: #36128F;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    border: 2px solid black; /* Set border color for the table */
+  }
+  
+  th, td {
+    border: 1px solid black; /* Set border color for table cells */
+    padding: 8px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f38e5b;
+    font-weight:lighter; /* Remove bold effect from table heading */
+  }
+  
+  tr:hover {
+    background-color: #f5f5f5;
+  }
+  
