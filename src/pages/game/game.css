@@ -97,6 +97,26 @@
    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
  }
 
+ #player{
+   background-image: url('/src/images/player.png');
+   background-size: contain;
+   background-repeat: no-repeat;
+   height: 250px;
+   width: 13%;
+   padding: 20px;
+   padding-top: 50px;
+   text-align: center;
+   margin-left: 36%;
+   font-size: 40px;
+   position: absolute;
+   top: 400px;
+   left: 50%;
+   transform: translateX(-50%);
+   color: white;
+   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+   border-radius: 15px; 
+ }
+
  .try-again-btn {
     background-color: #11002C;
     color: #f2f3f6;

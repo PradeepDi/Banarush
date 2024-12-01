@@ -6,6 +6,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { auth } from "../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { ReactSession } from 'react-client-session';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
 ReactSession.setStoreType("localStorage");
 
 const Login = () => {
@@ -37,9 +38,20 @@ const Login = () => {
         inputs.email,
         inputs.password
       );
+
+      // Fetch user's username from Firestore and save it to localStorage
+      const db = getFirestore();
+      const usersCollection = collection(db, 'users');
+      const querySnapshot = await getDocs(usersCollection);
+      const userDoc = querySnapshot.docs.find((doc) => doc.data().email === inputs.email);
+
+      if (userDoc) {
+        const username = userDoc.data().username;
+        localStorage.setItem('username', username); // Save username to localStorage
+      }
+
       localStorage.setItem('email', inputs.email);
-      localStorage.setItem('isLogged', 'true'); // Added session information
-      setInputType(true);
+      localStorage.setItem('isLogged', 'true'); // Set logged-in session
       ReactSession.set("isLogged", true);
       window.alert('Login Successful');
       const user = userCredential.user;
