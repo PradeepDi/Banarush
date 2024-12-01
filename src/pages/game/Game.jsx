@@ -124,7 +124,7 @@ const BananaGame = () => {
       setTimeout(() => {
         setClickedButton(null); // Reset button state
         fetchImage();
-        setSeconds((prev) => prev + 2); // Add 2 seconds for a correct answer
+        setSeconds((prev) => prev + 5); // Add 5 seconds for a correct answer
         setLevel((prevLevel) => prevLevel + 1); // Increment level on correct answer
       }, 1000); // Load next puzzle after 1 second
     } else {
