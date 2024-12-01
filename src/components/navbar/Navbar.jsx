@@ -7,7 +7,7 @@ function Navbar() {
     <div className="navbar">
       <div className="title">Banarush</div>
       <div className="nav-links">
-      <Link to ="/levels" className="nav-link">Menu</Link>
+      <Link to ="/Menu" className="nav-link">Menu</Link>
         <Link to ="/scoreboard" className="nav-link">Scoreboard</Link>
         <Link to="/instructions" className="nav-link">Instructions</Link>
         <Link to="/login" className="logout">Logout</Link>

@@ -8,16 +8,17 @@ import { getFirestore, collection, addDoc, updateDoc, getDocs, doc } from 'fireb
 import { ReactSession } from 'react-client-session';
 ReactSession.setStoreType('localStorage');
 
-const TomatoGame = () => {
+const BananaGame = () => {
   const [quest, setQuest] = useState('');
   const [solution, setSolution] = useState(-1);
   const [note, setNote] = useState('Choose the correct answer.');
   const [score, setScore] = useState(0);
-  const [seconds, setSeconds] = useState(100); // Start with 100 seconds
+  const [seconds, setSeconds] = useState(30); // Start with 30 seconds
   const [audio] = useState(new Audio(audioFile));
   const [isMuted, setIsMuted] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false); 
   const [options, setOptions] = useState([]);
+  const [clickedButton, setClickedButton] = useState(null); // New state for button feedback
   const [level, setLevel] = useState(1); // New level state
   const navigate = useNavigate();
 
@@ -89,7 +90,7 @@ const TomatoGame = () => {
     localStorage.removeItem('_react_session__');
     setNote('');
     setScore(0);
-    setSeconds(100); // Reset to initial time
+    setSeconds(30); // Reset to initial time
     navigate('/login');
   };
 
@@ -117,16 +118,20 @@ const TomatoGame = () => {
 
   const handleOptionClick = (selectedOption) => {
     if (selectedOption === solution) {
+      setClickedButton({ id: selectedOption, status: 'correct' });
       setNote('Correct!');
       updateScore(true);
       setTimeout(() => {
+        setClickedButton(null); // Reset button state
         fetchImage();
-        setSeconds((prev) => Math.max(prev - 5, 0)); // Reduce by 5 seconds, minimum 0
+        setSeconds((prev) => prev + 2); // Add 2 seconds for a correct answer
         setLevel((prevLevel) => prevLevel + 1); // Increment level on correct answer
       }, 1000); // Load next puzzle after 1 second
     } else {
+      setClickedButton({ id: selectedOption, status: 'wrong' });
       setNote('Not Correct!');
       updateScore(false);
+      setTimeout(() => setClickedButton(null), 1000); // Reset button state after 1 second
     }
   };
 
@@ -190,7 +195,14 @@ const TomatoGame = () => {
             <p id="note">{note}</p>
             <div className="options-container">
               {options.map((option, index) => (
-                <button key={index} className="option-btn" onClick={() => handleOptionClick(option)}>
+                <button
+                  key={index}
+                  className={`option-btn ${
+                    clickedButton?.id === option ? clickedButton.status : ''
+                  }`}
+                  onClick={() => handleOptionClick(option)}
+                  disabled={clickedButton !== null} // Disable buttons temporarily
+                >
                   {option}
                 </button>
               ))}
@@ -210,4 +222,4 @@ const TomatoGame = () => {
   );
 };
 
-export default TomatoGame;
+export default BananaGame;

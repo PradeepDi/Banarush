@@ -27,10 +27,10 @@ const Instructions = () => {
 
           <h6 className="iform-title">Description:</h6>
           <p className="iform-text">
-          Welcome to Banarush. This game has 5 levels. Initially you get 60 seconds
-           to solve the puzzle. When level up countdown time will be reduced.
-            If you cant solve the puzzle within given time, game will beover.
-             After 5 levels game will be finished.
+          Welcome to Banarush. This game has many levels. Initially you get 30 seconds
+           to solve the puzzle. For each correct answer 2 seconds will be added and level will be increased.
+           If you select wrong answer 1 mark will be deducted.
+            If you can't solve the puzzle within given time, game will be over.
           </p>
         </div>
         <label className="footer">Develop by Pradeep Dissanayaka</label>

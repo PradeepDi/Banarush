@@ -44,7 +44,7 @@
 .register button {
     height: 50px;
     width: 40%;
-    background-color: #371A46;
+    background-color: #26ac31;
     color: white;
     padding: 10px;
     border: none;
@@ -60,7 +60,7 @@
 }
 
 .register button:hover {
-    background-color: #36128F;  
+    background-color: #18742c;  
 }
 
 .formLink{

@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './login.css';
 import { Link, useNavigate } from 'react-router-dom';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import Preloader from '../../components/preloader/Preloader'; 
 import { auth } from "../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { ReactSession } from 'react-client-session';
@@ -17,7 +16,6 @@ const Login = () => {
   });
   const [toggleEye, setToggleEye] = useState(false);
   const [inputType, setInputType] = useState("password");
-  const [showPreloader, setShowPreloader] = useState(false); 
 
   const navigate = useNavigate();
 
@@ -44,13 +42,10 @@ const Login = () => {
       setInputType(true);
       ReactSession.set("isLogged", true);
       window.alert('Login Successful');
-      setShowPreloader(true);
       const user = userCredential.user;
       console.log(user);
 
-      setTimeout(() => {
-        navigate("/levels");
-      }, 5000);
+      navigate("/Menu");
     } catch (error) {
       setInputType(false);
       console.error('Error:', error.message);
@@ -59,15 +54,6 @@ const Login = () => {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    if (showPreloader) {
-      const preloaderTimer = setTimeout(() => {
-        setShowPreloader(true);
-      }, 5000);
-      return () => clearTimeout(preloaderTimer);
-    }
-  }, [showPreloader]);
 
   return (
     <div className="login">
@@ -114,9 +100,6 @@ const Login = () => {
           </Link>
         </div>
       </form>
-      {showPreloader && (
-        <Preloader />
-      )}
     </div>
   );
 };
