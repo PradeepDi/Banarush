@@ -35,7 +35,7 @@ const Menu = () => {
       <Link to="/instructions">
         <button id="About-btn">About</button>
       </Link>
-      <Link to="/ ">
+      <Link to="/">
         <button id="Home-btn">Home</button>
       </Link>
     </form>
