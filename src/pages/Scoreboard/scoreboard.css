@@ -12,9 +12,9 @@
   }
   
   #scoreboardForm {
-    display: flex; /* Add flex display */
-    flex-direction: column; /* Arrange children in a column */
-    align-items: center; /* Align items to the center horizontally */
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
     background-color: #D7E5FF;
     max-width: 600px;
     padding: 40px;
@@ -69,11 +69,11 @@
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
-    border: 2px solid black; /* Set border color for the table */
+    border: 2px solid black; 
   }
   
   th, td {
-    border: 1px solid black; /* Set border color for table cells */
+    border: 1px solid black; 
     padding: 8px;
     text-align: left;
   }
@@ -81,7 +81,7 @@
   th {
     background-color: #f38e5b;
     font-size: 22px;
-    font-weight:lighter; /* Remove bold effect from table heading */
+    font-weight:lighter; 
   }
   
   tr:hover {

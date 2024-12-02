@@ -10,7 +10,6 @@ import { getFirestore, collection, getDocs } from 'firebase/firestore';
 ReactSession.setStoreType("localStorage");
 
 const Login = () => {
-  const [loading, setLoading] = useState(false);
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
@@ -32,7 +31,6 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true);
       const userCredential = await signInWithEmailAndPassword(
         auth,
         inputs.email,
@@ -62,8 +60,6 @@ const Login = () => {
       setInputType(false);
       console.error('Error:', error.message);
       window.alert('Email or password is wrong');
-    } finally {
-      setLoading(false);
     }
   };
 

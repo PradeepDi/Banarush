@@ -36,7 +36,7 @@ const BananaGame = () => {
   const fetchUsernameFromFirestore = async () => {
     try {
       const db = getFirestore();
-      const email = localStorage.getItem('email'); // Get email from localStorage
+      const email = localStorage.getItem('email'); 
       if (!email) {
         window.alert('User data not found. Please log in again.');
         navigate('/login');
@@ -114,16 +114,6 @@ const BananaGame = () => {
     return () => clearInterval(timer);
   }, [seconds]);
 
-  // Logout handling
-  const handleLogout = () => {
-    ReactSession.set('isLogged', false);
-    localStorage.removeItem('_react_session__');
-    setNote('');
-    setScore(0);
-    setSeconds(30); // Reset to initial time
-    navigate('/login');
-  };
-
   // Start the new quest
   const startQuest = (data) => {
     try {
@@ -136,7 +126,7 @@ const BananaGame = () => {
       console.error('Error parsing JSON response:', error);
     }
   };
-
+//Generate unique 5 answers
   const generateOptions = (correctAnswer) => {
     const uniqueOptions = new Set([correctAnswer]);
 
@@ -146,7 +136,7 @@ const BananaGame = () => {
 
     setOptions(Array.from(uniqueOptions).sort(() => Math.random() - 0.5));
   };
-
+//Display status when answer clicked
   const handleOptionClick = (selectedOption) => {
     if (selectedOption === solution) {
       setClickedButton({ id: selectedOption, status: 'correct' });
@@ -173,13 +163,13 @@ const BananaGame = () => {
       setScore((prevScore) => Math.max(prevScore - 1, 0));
     }
   };
-
+  //Save score to database
   const saveScoreToDatabase = async (finalScore) => {
     try {
       const db = getFirestore();
       const scoresCollection = collection(db, 'scores');
       const userEmail = localStorage.getItem('email');
-      const username = localStorage.getItem('username'); // Retrieve the username
+      const username = localStorage.getItem('username'); 
 
       const querySnapshot = await getDocs(scoresCollection);
       const userDoc = querySnapshot.docs.find((doc) => doc.data().userEmail === userEmail);
@@ -188,14 +178,14 @@ const BananaGame = () => {
         // Update existing score record
         await updateDoc(doc(scoresCollection, userDoc.id), {
           score: finalScore,
-          username, // Include the username
+          username, 
           timestamp: new Date(),
         });
       } else {
         // Add new score record
         await addDoc(scoresCollection, {
           userEmail,
-          username, // Include the username
+          username, 
           score: finalScore,
           timestamp: new Date(),
         });
@@ -244,7 +234,7 @@ const BananaGame = () => {
               {isMuted ? ' 🔇' : ' 🔊'}
             </button>
             <div className="display-bar">
-              <p id="player">Player: {playerName}</p> {/* Added player's name */}
+              <p id="player">Player: {playerName}</p>
               <p id="timer">Timer: {seconds} s</p>
               <p id="score">Score: {score}</p>
               <p id="level">Level: {level}</p>
