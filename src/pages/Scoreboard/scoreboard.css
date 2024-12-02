@@ -29,8 +29,9 @@
   }
   
   #topic {
-    font-size: 35px;
-    align-self: center; /* Align the element to the center of the container */
+    font-size: 40px;
+    align-self: center; 
+    color: #0237c9;
   }
   
   #h {
@@ -60,8 +61,8 @@
     transform: translateX(-50%);
   }
   
-  #login-btn:hover {
-    background-color: #36128F;
+  #back-btn:hover {
+    background-color: #1e8d50;
   }
   
   table {
@@ -79,6 +80,7 @@
   
   th {
     background-color: #f38e5b;
+    font-size: 22px;
     font-weight:lighter; /* Remove bold effect from table heading */
   }
   
