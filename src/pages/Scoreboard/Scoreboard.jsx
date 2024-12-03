@@ -66,8 +66,8 @@ const Scoreboard = () => {
             ))}
           </tbody>
         </table>
-        <Link to="/game">
-          <button id="back-btn">Back</button>
+        <Link to="/menu">
+          <button id="back-btn">Menu</button>
         </Link>
       </form>
     </div>

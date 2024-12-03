@@ -13,7 +13,7 @@ const BananaGame = () => {
   const [solution, setSolution] = useState(-1);
   const [note, setNote] = useState('Choose the correct answer.');
   const [score, setScore] = useState(0);
-  const [seconds, setSeconds] = useState(30); // Start with 30 seconds
+  const [seconds, setSeconds] = useState(40); // Start with 40 seconds
   const [audio] = useState(new Audio(audioFile));
   const [isMuted, setIsMuted] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
@@ -145,7 +145,7 @@ const BananaGame = () => {
       setTimeout(() => {
         setClickedButton(null);
         fetchImage();
-        setSeconds((prev) => prev + 5);
+        setSeconds((prev) => prev + 3);
         setLevel((prevLevel) => prevLevel + 1);
       }, 1000);
     } else {

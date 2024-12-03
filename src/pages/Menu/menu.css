@@ -37,7 +37,7 @@
   }
   
   #Play-btn,
-  #About-btn,
+  #score-btn,
   #Home-btn {
       background-image: url('/src/images/btn.png');
       background-size: contain;
@@ -63,7 +63,7 @@
       bottom: 350px;
   }
   
-  #About-btn {
+  #score-btn {
       bottom: 230px;
   }
   
@@ -72,7 +72,7 @@
   }
 
   #Play-btn:hover,
-  #About-btn:hover,
+  #score-btn:hover,
   #Home-btn:hover {
     background-color: #36128F;
     transform: scale(1.1);

@@ -32,8 +32,8 @@ const Menu = () => {
       <Link to="/game">
         <button id="Play-btn">Play</button>
       </Link>
-      <Link to="/instructions">
-        <button id="About-btn">About</button>
+      <Link to="/scoreboard">
+        <button id="score-btn">Scoreboard</button>
       </Link>
       <Link to="/">
         <button id="Home-btn">Home</button>
