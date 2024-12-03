@@ -58,7 +58,7 @@ const Register = () => {
   const handleChange = (e) => {
     setInputValues({ ...inputValues, [e.target.name]: e.target.value });
   };
-
+//register event--------------------------------------------------------------
   const handleRegister = async (e) => {
     e.preventDefault();
 

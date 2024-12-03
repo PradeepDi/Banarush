@@ -136,7 +136,7 @@ const BananaGame = () => {
 
     setOptions(Array.from(uniqueOptions).sort(() => Math.random() - 0.5));
   };
-//Display status when answer clicked
+//Display status when answer clicked---------------------------------------------
   const handleOptionClick = (selectedOption) => {
     if (selectedOption === solution) {
       setClickedButton({ id: selectedOption, status: 'correct' });
@@ -163,7 +163,7 @@ const BananaGame = () => {
       setScore((prevScore) => Math.max(prevScore - 1, 0));
     }
   };
-  //Save score to database
+  //Save score to database event------------------------------------------------------------
   const saveScoreToDatabase = async (finalScore) => {
     try {
       const db = getFirestore();
@@ -194,12 +194,12 @@ const BananaGame = () => {
       console.error('Error saving/updating score to database:', error);
     }
   };
-
+//game over event---------------------------------------------------------
   const handleGameOver = () => {
     saveScoreToDatabase(score);
     setIsGameOver(true);
   };
-
+// handle mute -----------------------------------------------------------
   const handleMuteToggle = () => {
     setIsMuted(!isMuted);
   };
